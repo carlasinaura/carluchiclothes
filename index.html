@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f8edf0">
+  <meta name="description" content="Tu armario digital, tus outfits y tus favoritos.">
+  <title>carluchiclothes 🎀</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./assets/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="carluchiclothes inicio"><span class="brand-mark">c</span><span>carluchi<span class="brand-light">clothes</span><small>YOUR LITTLE DIGITAL CLOSET</small></span></a>
+    <button id="addTop" class="round-btn" aria-label="Añadir prenda" title="Añadir prenda">＋</button>
+  </header>
+
+  <main>
+    <section id="page-home" class="page active">
+      <div class="greeting"><p class="eyebrow">TU ARMARIO, TU ESTILO</p><h1>Hola, guapa <span>♡</span></h1><p class="muted">¿Qué te apetece ponerte hoy?</p></div>
+      <div class="hero-card">
+        <div><span class="pill">LOOK DEL DÍA</span><h2>Un outfit<br>muy tú.</h2><p>Combina tus prendas favoritas.</p><button class="primary-btn" data-go="tryon">Crear outfit <span>↗</span></button></div>
+        <div class="hero-art" aria-hidden="true"><span class="sparkle s1">✳</span><span class="sparkle s2">✧</span><div class="hanger">♡</div><div class="hanger-line"></div><span class="hero-ribbon">c</span></div>
+      </div>
+      <div class="section-heading"><div><p class="eyebrow">EMPIEZA POR AQUÍ</p><h2>Tu espacio</h2></div></div>
+      <div class="quick-grid">
+        <button class="quick-card" data-go="closet"><span class="quick-icon">▦</span><b>Mi armario</b><small id="itemCount">0 prendas guardadas</small><span class="arrow">↗</span></button>
+        <button class="quick-card" data-go="favorites"><span class="quick-icon">♡</span><b>Favoritos</b><small id="favCount">Tus looks favoritos</small><span class="arrow">↗</span></button>
+        <button class="quick-card" data-go="week"><span class="quick-icon">▣</span><b>Looks por días</b><small>Organiza tu semana</small><span class="arrow">↗</span></button>
+        <button class="quick-card" data-go="stats"><span class="quick-icon">✳</span><b>Estadísticas</b><small>Descubre tus básicos</small><span class="arrow">↗</span></button>
+      </div>
+      <div class="tip"><span>✧</span><p><b>Un pequeño recordatorio</b><br>Haz una copia de seguridad para cuidar de tu armario digital.</p><button data-go="profile" aria-label="Abrir copias de seguridad">›</button></div>
+    </section>
+
+    <section id="page-closet" class="page">
+      <div class="page-heading"><p class="eyebrow">TODO LO QUE TIENES</p><h1>Mi armario <span>♡</span></h1><p class="muted">Cada prenda tiene su historia.</p></div>
+      <div class="toolbar"><label class="searchbox"><span>⌕</span><input id="searchInput" type="search" placeholder="Buscar una prenda..." autocomplete="off"></label><button class="primary-btn compact" id="addCloset">＋ Añadir</button></div>
+      <div class="filter-row"><select id="categoryFilter" aria-label="Filtrar por categoría"><option value="all">Todas las categorías</option><option value="tops">Parte de arriba</option><option value="bottoms">Parte de abajo</option><option value="shoes">Zapatos</option><option value="accessories">Accesorios</option><option value="other">Otros</option></select><select id="colorFilter" aria-label="Filtrar por color"><option value="all">Todos los colores</option><option>Blanco</option><option>Negro</option><option>Rosa</option><option>Beige</option><option>Azul</option><option>Verde</option><option>Rojo</option><option>Gris</option><option>Multicolor</option></select><button id="onlyFavorites" class="filter-chip">♡ Favoritas</button></div>
+      <div id="closetGrid" class="clothing-grid"></div>
+      <div id="closetEmpty" class="empty-state"><div class="empty-icon">♡</div><h3>Tu armario empieza aquí</h3><p>Añade tu primera prenda y empieza a crear looks.</p><button class="primary-btn" id="emptyAdd">Añadir mi primera prenda</button></div>
+    </section>
+
+    <section id="page-tryon" class="page">
+      <div class="page-heading"><p class="eyebrow">MEZCLA · PRUEBA · REPITE</p><h1>El probador <span>✧</span></h1><p class="muted">Cambia una prenda sin perder las demás.</p></div>
+      <div class="tryon-toolbar"><button id="randomLook" class="secondary-btn">✧ Sorpréndeme</button><button id="clearLook" class="text-btn">Limpiar look</button></div>
+      <div class="outfit-board">
+        <div class="outfit-board-head"><span>MY OUTFIT</span><span id="outfitDate"></span></div>
+        <div id="outfitSlots" class="outfit-slots"></div>
+        <div class="outfit-actions"><button id="saveLook" class="primary-btn">♡ Guardar look</button><button id="saveToDay" class="secondary-btn">▣ Añadir a un día</button></div>
+      </div>
+      <p class="hint">Consejo: añade fotos con fondo claro para que tu conjunto se vea más ordenado.</p>
+    </section>
+
+    <section id="page-favorites" class="page">
+      <div class="page-heading"><p class="eyebrow">LOS QUE SIEMPRE FUNCIONAN</p><h1>Mis favoritos <span>♡</span></h1><p class="muted">Tus conjuntos guardados en un mismo sitio.</p></div>
+      <div id="favoritesList" class="looks-list"></div>
+      <div id="favoritesEmpty" class="empty-state"><div class="empty-icon">♡</div><h3>Aún no hay favoritos</h3><p>Cuando crees un look que te encante, guárdalo aquí.</p><button class="primary-btn" data-go="tryon">Crear un look</button></div>
+    </section>
+
+    <section id="page-week" class="page">
+      <div class="page-heading"><p class="eyebrow">PLANIFICA SIN PRISAS</p><h1>Mi semana <span>♡</span></h1><p class="muted">Prepara tus looks para los próximos días.</p></div>
+      <div id="weekList" class="week-list"></div>
+    </section>
+
+    <section id="page-stats" class="page">
+      <div class="page-heading"><p class="eyebrow">TU ESTILO EN DATOS</p><h1>Mis estadísticas <span>✳</span></h1><p class="muted">Un resumen de cómo usas tu armario.</p></div>
+      <div class="stats-cards"><div class="stat-card"><span>PRENDAS</span><b id="statItems">0</b><small>en tu armario</small></div><div class="stat-card"><span>LOOKS</span><b id="statLooks">0</b><small>guardados</small></div><div class="stat-card"><span>FAVORITOS</span><b id="statFavorites">0</b><small>looks favoritos</small></div></div>
+      <div class="panel"><h3>Prendas más utilizadas</h3><p class="muted small">Marca una prenda como usada desde sus detalles para actualizar este recuento.</p><div id="popularItems" class="popular-list"></div></div>
+    </section>
+
+    <section id="page-profile" class="page">
+      <div class="page-heading"><p class="eyebrow">TODO EN SU SITIO</p><h1>Mi espacio <span>♡</span></h1><p class="muted">Cuida tus prendas y tus recuerdos.</p></div>
+      <div class="settings-card"><div class="setting-icon">↗</div><div><b>Exportar copia de seguridad</b><p>Guarda tus prendas, fotos, looks y calendario en un archivo.</p></div><button id="exportBackup" class="outline-btn">Exportar</button></div>
+      <div class="settings-card"><div class="setting-icon">↙</div><div><b>Restaurar copia</b><p>Recupera un archivo de carluchiclothes guardado anteriormente.</p></div><button id="importBackup" class="outline-btn">Importar</button><input type="file" id="backupFile" accept=".json,application/json" hidden></div>
+      <div class="settings-card"><div class="setting-icon">♡</div><div><b>Tu privacidad</b><p>Los datos se guardan en este dispositivo. No hay cuenta ni sincronización automática.</p></div></div>
+      <div class="warning-note"><b>Importante</b><p>Las fotos y los datos pueden perderse si borras los datos del sitio, cambias de navegador o dispositivo, o si el navegador elimina datos locales. Exporta copias periódicamente y guárdalas en otro lugar seguro.</p></div>
+      <div class="about"><span class="brand-mark">c</span><p><b>carluchiclothes</b><br><small>Tu pequeño armario digital · v1.0</small></p></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Navegación principal">
+    <button class="nav-item active" data-page="home"><span>⌂</span><small>Inicio</small></button>
+    <button class="nav-item" data-page="closet"><span>▦</span><small>Armario</small></button>
+    <button class="nav-item nav-main" data-page="tryon"><span>✧</span><small>Probador</small></button>
+    <button class="nav-item" data-page="favorites"><span>♡</span><small>Favoritos</small></button>
+    <button class="nav-item" data-page="profile"><span>☰</span><small>Más</small></button>
+  </nav>
+
+  <dialog id="itemDialog" class="modal">
+    <form id="itemForm" class="modal-content">
+      <div class="modal-head"><div><p class="eyebrow">AÑADE AL ARMARIO</p><h2 id="itemDialogTitle">Nueva prenda</h2></div><button type="button" class="close-btn" data-close="itemDialog" aria-label="Cerrar">×</button></div>
+      <input type="hidden" id="itemId">
+      <label class="photo-picker" for="itemPhoto"><span id="photoPreviewIcon">＋</span><img id="photoPreview" alt="Vista previa de la prenda" hidden><b id="photoLabel">Añadir foto</b><small>Galería o cámara del móvil</small></label>
+      <input type="file" id="itemPhoto" accept="image/*" capture="environment" hidden>
+      <label class="field-label">Nombre de la prenda<input id="itemName" required maxlength="70" placeholder="Ej. Camiseta blanca"></label>
+      <div class="field-pair"><label class="field-label">Categoría<select id="itemCategory" required><option value="tops">Parte de arriba</option><option value="bottoms">Parte de abajo</option><option value="shoes">Zapatos</option><option value="accessories">Accesorios</option><option value="other">Otros</option></select></label><label class="field-label">Color<select id="itemColor"><option value="">Sin especificar</option><option>Blanco</option><option>Negro</option><option>Rosa</option><option>Beige</option><option>Azul</option><option>Verde</option><option>Rojo</option><option>Gris</option><option>Multicolor</option></select></label></div>
+      <label class="field-label">Notas (opcional)<textarea id="itemNotes" rows="2" maxlength="300" placeholder="Talla, temporada, cómo combinarla..."></textarea></label>
+      <div class="modal-actions"><button type="button" class="secondary-btn" data-close="itemDialog">Cancelar</button><button type="submit" class="primary-btn">Guardar prenda</button></div>
+      <p class="modal-footnote">Las fotos se guardan en este dispositivo. Las imágenes grandes se optimizan para ahorrar espacio.</p>
+    </form>
+  </dialog>
+
+  <dialog id="dayDialog" class="modal">
+    <form id="dayForm" class="modal-content">
+      <div class="modal-head"><div><p class="eyebrow">ORGANIZA TU SEMANA</p><h2>Asignar look</h2></div><button type="button" class="close-btn" data-close="dayDialog" aria-label="Cerrar">×</button></div>
+      <label class="field-label">Día<select id="daySelect"><option value="Lunes">Lunes</option><option value="Martes">Martes</option><option value="Miércoles">Miércoles</option><option value="Jueves">Jueves</option><option value="Viernes">Viernes</option><option value="Sábado">Sábado</option><option value="Domingo">Domingo</option></select></label>
+      <label class="field-label">Nombre del look<input id="dayLookName" maxlength="70" placeholder="Ej. Look cómodo"></label>
+      <div class="modal-actions"><button type="button" class="secondary-btn" data-close="dayDialog">Cancelar</button><button type="submit" class="primary-btn">Guardar día</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="detailDialog" class="modal"><div id="detailContent" class="modal-content"></div></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
